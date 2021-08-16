@@ -32,45 +32,22 @@ class SaleOrderInherit(models.Model):
                 #or self.user_has_groups('sales_team.group_sale_manager'))
         else:
             return False
+
     def button_approve(self, force=False):
+        """button to approve the record if it is in approve stage by the manager"""
         self = self.filtered(lambda order: order._approval_needed())
         self.write({'state': 'sale','date_order': fields.Datetime.now()})
         return {}
 
 
     def action_confirm(self):
-        #if self.amount_total < self.company_id.so_double_validation_amount:
         if self._approval_needed():
             self.button_approve()
-            print("STAYIN IN IF ELSE",self.company_id.so_double_validation_amount,self.amount_total)
         else:
-            print("COMING TO ELSE",self.company_id.so_double_validation_amount,self.amount_total)
             self.update({'state': 'to_approve'})
-        # return super(SaleOrderInherit,self).action_confirm()
+        #return super(SaleOrderInherit,self).action_confirm()
 
-    # def action_confirm(self):
-    #     #if self._approval_needed():
-    #     if self.amount_total < self.company_id.so_double_validation_amount:
-    #         self.button_approve()
-    #     else:
-    #         self.write({'state': 'to_approve'})
-    #     if self._get_forbidden_state_confirm() & set(self.mapped('state')):
-    #         raise UserError(_(
-    #             'It is not allowed to confirm an order in the following states: %s'
-    #         ) % (', '.join(self._get_forbidden_state_confirm())))
-    #     for order in self.filtered(lambda order: order.partner_id not in order.message_partner_ids):
-    #         order.message_subscribe([order.partner_id.id])
-    #     self.write(self._prepare_confirmation_values())
-    #
-    #     # Context key 'default_name' is sometimes propagated up to here.
-    #     # We don't need it and it creates issues in the creation of linked records.
-    #     context = self._context.copy()
-    #     context.pop('default_name', None)
-    #
-    #     self.with_context(context)._action_confirm()
-    #     if self.env.user.has_group('sale.group_auto_done_setting'):
-    #         self.action_done()
-    #     return True
+
 
 
 

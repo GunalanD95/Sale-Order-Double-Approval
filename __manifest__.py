@@ -1,5 +1,5 @@
 {
-    "name": "Sale Order Double Approval Module ",
+    "name": "Sale Order Double Approval",
     "summary": """Sale double approval""",
     "version": "14.0.1.0.2",
     "category": "Extra Tools",

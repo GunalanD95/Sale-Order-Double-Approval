@@ -46,7 +46,7 @@
                 <attribute name="statusbar_visible">to_approve,draft,sent,sale</attribute>
             </xpath>
             <xpath expr="//button[@name='action_confirm']" position="attributes">
-                <attribute name="attrs">{'invisible': [('state', 'not in', ['draft', 'sent'])]}</attribute>
+                <attribute name="attrs">{'invisible': [('state', 'not in', ['sent'])]}</attribute>
             </xpath>
 
         </field>
