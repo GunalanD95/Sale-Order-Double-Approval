@@ -42,14 +42,10 @@ class SaleOrderInherit(models.Model):
 
     def action_confirm(self):
         if self._approval_needed():
-            self.button_approve()
+            #self.button_approve()
+            return super(SaleOrderInherit, self).action_confirm()
         else:
             self.update({'state': 'to_approve'})
-        #return super(SaleOrderInherit,self).action_confirm()
-
-
-
-
 
 
 class ResConfigSettingsInherit(models.TransientModel):
