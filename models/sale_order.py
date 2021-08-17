@@ -42,11 +42,15 @@ class SaleOrderInherit(models.Model):
 
     def action_confirm(self):
         if self._approval_needed():
-            #self.button_approve()
             return super(SaleOrderInherit, self).action_confirm()
         else:
             self.update({'state': 'to_approve'})
 
+
+    def action_refuse(self):
+        current = self.invoice_ids.filtered(lambda current: current.state == 'to_approve')
+        current.button_cancel()
+        return self.write({'state': 'cancel'})
 
 class ResConfigSettingsInherit(models.TransientModel):
     _inherit = 'res.config.settings'
