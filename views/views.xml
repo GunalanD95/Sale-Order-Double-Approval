@@ -50,7 +50,7 @@
             </xpath>
 
             <xpath expr="//button[@name='action_cancel']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('state', 'not in', ['draft','to_approve','sent','sale']), ('id', '=', False)]}</attribute>
             </xpath>
 
 
